@@ -1,0 +1,26 @@
+emqtt1:
+  image: ratchasak_ranron/emqtt
+  container_name: emqtt1
+  restart: always
+  ports:
+    - "1883:1883"
+    - "8883:8883"
+    - "8085:8083"
+    - "18083:18083"
+  environment:
+    NODE_IP: localhost
+
+emqtt2:
+  image: ratchasak_ranron/emqtt
+  container_name: emqtt2
+  restart: always
+  ports:
+    - "1884:1883"
+    - "8884:8883"
+    - "8086:8083"
+    - "18084:18083"
+  external_links:
+    - emqtt1:emqtt_master
+  environment:
+    NODE_IP: localhost
+    MASTER: emqtt_master
